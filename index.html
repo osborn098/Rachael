@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Journey for Rachael 💜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #8B5CF6 0%, #C084FC 50%, #E879F9 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(10px); }
+            50% { transform: translateY(-60px) translateX(-10px); }
+            75% { transform: translateY(-30px) translateX(5px); }
+        }
+
+        .screen {
+            display: none;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 25px 70px rgba(139, 92, 246, 0.4);
+            text-align: center;
+            max-width: 550px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-30px) scale(0.95);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #8B5CF6;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(139, 92, 246, 0.2);
+        }
+
+        h2 {
+            color: #A855F7;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #4B5563;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #8B5CF6 0%, #C084FC 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 1rem 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 20px;
+            border-left: 5px solid #8B5CF6;
+            text-align: left;
+            animation: slideInLeft 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .timeline-emoji {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .code-puzzle {
+            background: #1F2937;
+            color: #10B981;
+            padding: 2rem;
+            border-radius: 20px;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .keyword { color: #8B5CF6; font-weight: bold; }
+        .string { color: #F59E0B; }
+        .comment { color: #6B7280; }
+        .function { color: #EC4899; }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: 3px solid #8B5CF6;
+            border-radius: 15px;
+            margin: 1rem 0;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+            transform: scale(1.02);
+        }
+
+        .swim-scene {
+            background: linear-gradient(180deg, #DBEAFE 0%, #BFDBFE 50%, #93C5FD 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100"><path fill="%233B82F6" fill-opacity="0.3" d="M0,50 Q300,100 600,50 T1200,50 L1200,100 L0,100 Z"/></svg>');
+            animation: wave 8s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .final-question {
+            font-size: 1.8rem;
+            color: #8B5CF6;
+            font-weight: bold;
+            margin: 2rem 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .buttons-container {
+            position: relative;
+            min-height: 80px;
+            margin-top: 2rem;
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .yes-btn:hover {
+            box-shadow: 0 10px 35px rgba(16, 185, 129, 0.6);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #EF4444 0%, #F87171 100%);
+            position: absolute;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F59E0B 100%);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: celebrationFade 0.8s ease-out;
+        }
+
+        @keyframes celebrationFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .celebration-content {
+            text-align: center;
+            color: white;
+            animation: celebrationBounce 1s ease-out;
+        }
+
+        @keyframes celebrationBounce {
+            0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+            50% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
+        .celebration h2 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            animation: rainbow 3s linear infinite;
+        }
+
+        @keyframes rainbow {
+            0% { color: #FF6B6B; }
+            25% { color: #FFD93D; }
+            50% { color: #6BCF7F; }
+            75% { color: #4D96FF; }
+            100% { color: #FF6B6B; }
+        }
+
+        .celebration p {
+            font-size: 1.6rem;
+            margin: 1rem 0;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 1001;
+        }
+
+        .dance-emoji {
+            position: fixed;
+            font-size: 3rem;
+            animation: dance 2s ease-in-out infinite;
+            z-index: 1001;
+        }
+
+        @keyframes dance {
+            0%, 100% { transform: rotate(-15deg) scale(1); }
+            25% { transform: rotate(15deg) scale(1.2); }
+            50% { transform: rotate(-15deg) scale(0.9); }
+            75% { transform: rotate(15deg) scale(1.1); }
+        }
+
+        .heart-float {
+            position: fixed;
+            font-size: 2.5rem;
+            animation: floatUp 4s ease-out infinite;
+            z-index: 1001;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        .error-msg {
+            color: #EF4444;
+            font-weight: bold;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .success-msg {
+            color: #10B981;
+            font-weight: bold;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50%;
+            border-top-color: #8B5CF6;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <!-- Screen 1: Welcome -->
+    <div class="screen active" id="screen1">
+        <h1>💜 Hey Rachael! 💜</h1>
+        <p style="font-size: 1.3rem; color: #8B5CF6; font-weight: 600;">
+            I built something special just for you...
+        </p>
+        <p>
+            Before I ask you something important, let's take a little journey down memory lane! 
+            Ready for an adventure? 🚀
+        </p>
+        <button class="btn" onclick="goToScreen(2)">Let's Go! ✨</button>
+    </div>
+
+    <!-- Screen 2: Timeline -->
+    <div class="screen" id="screen2">
+        <h2>📅 Our Amazing Year Together</h2>
+        <p>Can you believe it's been a whole year? Here are some moments I'll never forget...</p>
+        
+        <div class="timeline-item">
+            <span class="timeline-emoji">🤝</span>
+            <strong>The Beginning:</strong> When our friend introduced us. I had no idea someone so amazing was about to walk into my life!
+        </div>
+        
+        <div class="timeline-item">
+            <span class="timeline-emoji">😊</span>
+            <strong>First Time I Noticed:</strong> That smile of yours... It just lights up everything around you. Still does, every single time.
+        </div>
+        
+        <div class="timeline-item">
+            <span class="timeline-emoji">🏊‍♀️</span>
+            <strong>The Swimming Day:</strong> Remember when you were shy? That was so cute! You're usually so confident and authoritative (which I love btw 😏), so seeing that softer side was special.
+        </div>
+        
+        <div class="timeline-item">
+            <span class="timeline-emoji">💃</span>
+            <strong>The Party Vibes:</strong> Watching you dance and have fun... you bring the ENERGY! Life with you is never boring!
+        </div>
+
+        <button class="btn" onclick="goToScreen(3)">This is Sweet! Continue 💜</button>
+    </div>
+
+    <!-- Screen 3: Code Puzzle -->
+    <div class="screen" id="screen3">
+        <h2>🎮 Debug My Heart!</h2>
+        <p>Okay, I wrote some code but there's a bug... Can you help me fix it? 😅</p>
+        
+        <div class="code-puzzle">
+            <div><span class="keyword">function</span> <span class="function">myFeelings</span>() {</div>
+            <div>  <span class="keyword">let</span> heart = <span class="string">'beating normally'</span>;</div>
+            <div>  <span class="keyword">let</span> smile = <span class="string">'normal'</span>;</div>
+            <div>  </div>
+            <div>  <span class="comment">// Bug somewhere here! 🐛</span></div>
+            <div>  <span class="keyword">if</span> (thinking_about === <span class="string">'______'</span>) {</div>
+            <div>    heart = <span class="string">'racing like crazy'</span>;</div>
+            <div>    smile = <span class="string">'uncontrollable'</span>;</div>
+            <div>    happiness = <span class="string">'level 1000'</span>;</div>
+            <div>  }</div>
+            <div>}</div>
+        </div>
+
+        <p style="color: #8B5CF6; font-weight: bold;">
+            Fill in the blank: When I'm thinking about ______, my heart races!
+        </p>
+        
+        <input type="text" id="puzzleAnswer" placeholder="Type your answer here..." />
+        <div class="error-msg" id="errorMsg">Hmm, try again! Think about who this is all for 😉</div>
+        <div class="success-msg" id="successMsg">YES! That's right! 💜</div>
+        
+        <button class="btn" onclick="checkPuzzle()">Debug It! 🔧</button>
+    </div>
+
+    <!-- Screen 4: Swimming Memory -->
+    <div class="screen" id="screen4">
+        <h2>🏊‍♀️ Remember This?</h2>
+        
+        <div class="swim-scene">
+            <div style="position: relative; z-index: 2; padding: 1rem;">
+                <p style="font-size: 3rem;">🏊‍♀️💦</p>
+                <p style="color: #1E40AF; font-weight: bold;">
+                    "That day at the pool when you were being all shy..."
+                </p>
+                <p style="color: #1E40AF;">
+                    It was adorable seeing that side of you. You're usually so confident and in charge (which is honestly super attractive 😏), but that moment showed me there's so much depth to you!
+                </p>
+            </div>
+            <div class="wave"></div>
+        </div>
+
+        <p style="margin-top: 1.5rem;">
+            Every moment with you is a memory I treasure. You're confident, fun, beautiful, and real. That's pretty rare! 💜
+        </p>
+
+        <button class="btn" onclick="goToScreen(5)">You're Making Me Blush! 🙈</button>
+    </div>
+
+    <!-- Screen 5: The Big Question -->
+    <div class="screen" id="screen5">
+        <h1>💜 Rachael 💜</h1>
+        
+        <div class="code-puzzle">
+            <div><span class="keyword">while</span> (<span class="function">true</span>) {</div>
+            <div>  <span class="function">thinkAbout</span>(<span class="string">'Rachael'</span>);</div>
+            <div>  <span class="function">admire</span>(<span class="string">'that smile'</span>);</div>
+            <div>  <span class="function">appreciate</span>(<span class="string">'her vibe'</span>);</div>
+            <div>  <span class="comment">// TODO: Make this official? 👀</span></div>
+            <div>}</div>
+        </div>
+
+        <p class="final-question">
+            Will You Be My Girlfriend? 🌹
+        </p>
+
+        <p style="font-size: 1rem; color: #6B7280; margin-bottom: 2rem;">
+            - Osborn 💜
+        </p>
+
+        <div class="buttons-container">
+            <button class="btn yes-btn" onclick="sayYes()">YES! I'd Love To! 💕</button>
+            <button class="btn no-btn" id="noBtn" onmouseover="runAway()" onclick="runAway()">No</button>
+        </div>
+        
+        <p style="font-size: 0.9rem; color: #9CA3AF; margin-top: 3rem;">
+            (Try clicking "No" if you dare 😏)
+        </p>
+    </div>
+
+    <!-- Celebration Screen -->
+    <div class="celebration" id="celebration">
+        <div class="celebration-content">
+            <h2>🎉 SHE SAID YES! 🎉</h2>
+            <p style="font-size: 2.5rem;">💜 RACHAEL & OSBORN 💜</p>
+            <p>You just made me the happiest person alive!</p>
+            <p style="font-size: 1.3rem; margin-top: 2rem;">
+                Get ready for parties, adventures, laughter, and SO many amazing memories together! 💃🕺
+            </p>
+            <p style="font-size: 1.1rem; margin-top: 2rem; font-style: italic;">
+                "Here's to us and the incredible journey ahead!" 🥂
+            </p>
+        </div>
+    </div>
+
+    <audio id="celebrationMusic" loop>
+        <source src="data:audio/mp3;base64," type="audio/mp3">
+    </audio>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 6 + 3 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        function goToScreen(screenNum) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen' + screenNum).classList.add('active');
+        }
+
+        function checkPuzzle() {
+            const answer = document.getElementById('puzzleAnswer').value.toLowerCase().trim();
+            const errorMsg = document.getElementById('errorMsg');
+            const successMsg = document.getElementById('successMsg');
+            
+            if (answer === 'rachael' || answer === 'rachel' || answer === 'you') {
+                errorMsg.style.display = 'none';
+                successMsg.style.display = 'block';
+                setTimeout(() => goToScreen(4), 1500);
+            } else {
+                errorMsg.style.display = 'block';
+                successMsg.style.display = 'none';
+            }
+        }
+
+        // Easter egg: Allow Enter key on puzzle
+        document.getElementById('puzzleAnswer')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkPuzzle();
+        });
+
+        let noButtonAttempts = 0;
+        function runAway() {
+            const btn = document.getElementById('noBtn');
+            noButtonAttempts++;
+            
+            const x = Math.random() * (window.innerWidth - 200);
+            const y = Math.random() * (window.innerHeight - 100);
+            
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            btn.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+            
+            if (noButtonAttempts > 3) {
+                btn.textContent = "You can't click me! 😝";
+            }
+            if (noButtonAttempts > 6) {
+                btn.textContent = "Just say YES! 💜";
+            }
+        }
+
+        function sayYes() {
+            const celebration = document.getElementById('celebration');
+            celebration.style.display = 'flex';
+            
+            // Create massive confetti explosion
+            const colors = ['#8B5CF6', '#C084FC', '#E879F9', '#EC4899', '#F59E0B', '#10B981'];
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = confetti.style.width;
+                    confetti.style.animation = `confettiFall ${Math.random() * 3 + 2}s linear`;
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 20);
+            }
+
+            // Dancing emojis
+            const danceEmojis = ['💃', '🕺', '🎉', '🎊', '✨', '💜', '❤️', '🎵'];
+            setInterval(() => {
+                const emoji = document.createElement('div');
+                emoji.className = 'dance-emoji';
+                emoji.textContent = danceEmojis[Math.floor(Math.random() * danceEmojis.length)];
+                emoji.style.left = Math.random() * 90 + '%';
+                emoji.style.top = Math.random() * 90 + '%';
+                emoji.style.animationDelay = Math.random() + 's';
+                document.body.appendChild(emoji);
+                
+                setTimeout(() => emoji.remove(), 2000);
+            }, 400);
+
+            // Floating hearts
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart-float';
+                heart.textContent = ['💜', '💕', '❤️', '💖'][Math.floor(Math.random() * 4)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.bottom = '-50px';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 4000);
+            }, 300);
+        }
+
+        // Add confetti animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes confettiFall {
+                to {
+                    transform: translateY(100vh) rotate(${Math.random() * 720}deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
